@@ -9,8 +9,8 @@ export const Navbar = () => {
     <nav className="fixed z-50 top-0 h-14 w-full px-4 bg-white flex items-center justify-between border-b shadow-sm">
       <div className="flex gap-4 items-center">
         <Logo />
-        <Button size="sm" className="hidden md:block rounded-sm">Create</Button>
-        <Button size="sm" className="md:hidden rounded-sm">
+        <Button variant="primary" size="sm" className="hidden md:block rounded-sm">Create</Button>
+        <Button variant="primary" size="sm" className="md:hidden rounded-sm">
           <Plus className="h-4 w-4" />
         </Button>
       </div>
