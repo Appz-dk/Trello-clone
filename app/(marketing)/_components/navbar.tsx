@@ -1,5 +1,6 @@
 import { Logo } from "@/components/logo"
 import { Button } from "@/components/ui/button"
+import { siteName } from "@/config/site"
 import Link from "next/link"
 
 export const Navbar = () => {
@@ -18,7 +19,7 @@ export const Navbar = () => {
           </Button>
           <Button size="sm" asChild>
             <Link href="/sign-in">
-              Get Taskify for free
+              Get {siteName} for free
             </Link>
           </Button>
         </div>

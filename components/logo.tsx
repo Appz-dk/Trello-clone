@@ -3,6 +3,7 @@ import Link from "next/link"
 import localFont from "next/font/local"
 
 import { cn } from "@/lib/utils"
+import { siteName } from "@/config/site"
 
 const LogoFont = localFont({
   src: "../public/fonts/font.woff2"
@@ -16,7 +17,7 @@ export const Logo = () => {
         <p className={cn(
           "text-lg text-neutral-700",
           LogoFont.className
-        )}>Taskify</p>
+        )}>{siteName}</p>
       </div>
     </Link>
   )
