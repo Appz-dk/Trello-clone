@@ -27,7 +27,7 @@ const MarketingPage = () => {
         <h1 className={cn(
           "text-3xl md:text-6xl text-neutral-800 text-center mb-6",
           HeadingFont.className
-        )}>{siteName} helps team move</h1> 
+        )}>{siteName} helps teams move</h1> 
         <div className="text-3xl md:text-6xl text-white bg-gradient-to-r from-pink-600 to-fuchsia-600 px-4 py-2 pb-4 rounded-sm w-fit">
           Work forward.
         </div>
