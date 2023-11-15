@@ -46,9 +46,18 @@ export const Sidebar: React.FC<Props> = ({ storageKey = "t-sidebar-state" }) => 
   // Loading State
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
-      <>
-        <Skeleton />
-      </>
+      <div className="flex flex-col gap-2 pl-4">
+        <div className="flex items-center justify-between">
+          <Skeleton className="w-[50%] h-10" />
+          <Skeleton className="w-10 h-10"/>
+        </div>
+        <div className="space-y-2">
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+        </div>
+      </div>
     )
   }
 

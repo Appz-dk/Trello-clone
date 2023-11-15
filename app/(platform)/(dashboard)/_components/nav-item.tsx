@@ -5,6 +5,7 @@ import { Activity, Settings, CreditCard, Layout } from "lucide-react"
 import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type TOrganization = {
   id: string;
@@ -20,7 +21,7 @@ type Props = {
   onExpand: (id: string) => void
 }
 
-export const NavItem: React.FC<Props> = ({isActive, isExpanded, organization, onExpand}) => {
+export const NavItem = ({isActive, isExpanded, organization, onExpand} : Props) => {
   const router = useRouter()
   const pathname = usePathname()
 
@@ -86,5 +87,17 @@ export const NavItem: React.FC<Props> = ({isActive, isExpanded, organization, on
             ))}
         </AccordionContent>
     </AccordionItem>
+  )
+}
+
+
+NavItem.Skeleton = function NavItemSkeleton () {
+  return (
+    <div className="pt-1 flex gap-2 items-center">
+      <div className="w-10 h-10 shrink-0">
+        <Skeleton className="h-full w-full" />
+      </div>
+      <Skeleton className="h-10 w-full" />
+    </div>
   )
 }
