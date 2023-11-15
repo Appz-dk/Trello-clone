@@ -29,7 +29,7 @@ const MarketingPage = () => {
           HeadingFont.className
         )}>{siteName} helps teams move</h1> 
         <div className="text-3xl md:text-6xl text-white bg-gradient-to-r from-pink-600 to-fuchsia-600 px-4 py-2 pb-4 rounded-sm w-fit">
-          Work forward.
+          work forward.
         </div>
       </div>
       <div className={cn(
