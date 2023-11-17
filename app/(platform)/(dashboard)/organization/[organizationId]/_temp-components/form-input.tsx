@@ -1,8 +1,8 @@
 "use client"
 
 import { createBoard } from "@/actions/createBoard"
-import { Button } from "@/components/ui/button"
 import { useFormState } from "react-dom"
+import { FormSubmit } from "./form-submit"
 
 export const FormInput = () => {
   const initialFormState = {
@@ -11,6 +11,7 @@ export const FormInput = () => {
   }
   const [formState, dispatch] = useFormState(createBoard, initialFormState)
   const titleError = formState?.errors?.title
+
   return (
     <form action={dispatch}>
       {titleError?.length && (
@@ -21,7 +22,7 @@ export const FormInput = () => {
         </div>
       )}
       <input id="title" name="title" placeholder="Enter title" className="border border-input p-1"/>
-      <Button type="submit" className="ml-2">Submit</Button>
+      <FormSubmit />
     </form>
   )
 }
