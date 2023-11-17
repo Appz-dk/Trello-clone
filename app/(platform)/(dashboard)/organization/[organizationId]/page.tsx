@@ -1,6 +1,7 @@
 import { createBoard } from "@/actions/createBoard"
 import { Button } from "@/components/ui/button"
 import { db } from "@/lib/db"
+import { Board } from "./_temp-components/board"
 
 const OrganizationIdPage = async () => {
   const boards = await db.board.findMany()
@@ -13,7 +14,9 @@ const OrganizationIdPage = async () => {
       </form>
       <div className="space-y-1">
         {boards.map(board => (
-          <div key={board.id}>Board title: {board.title}</div>
+          <div key={board.id} className="flex gap-2 items-center">
+            <Board key={board.id} title={board.title} id={board.id} />
+          </div>
         ))}
       </div>
     </div>
