@@ -1,25 +1,13 @@
-import { db } from "@/lib/db"
+import { createBoard } from "@/actions/createBoard"
+import { Button } from "@/components/ui/button"
 
 const OrganizationIdPage = () => {
 
-  // Trying out server actions with prisma database
-  async function create(formData: FormData) {
-    "use server"
-
-    const title = formData.get("title")
-    if (!title || typeof title !== "string") return
-
-    await db.board.create({
-      data: {
-        title
-      }
-    })
-  }
-
   return (
     <div>
-      <form action={create}>
+      <form action={createBoard}>
         <input id="title" name="title" placeholder="Enter title" className="border border-input p-1"/>
+        <Button type="submit" className="ml-2">Submit</Button>
       </form>
     </div>
   )
