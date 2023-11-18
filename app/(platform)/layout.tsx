@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs"
+import { Toaster } from "sonner"
 
 type Props = {
   children: React.ReactNode
@@ -7,6 +8,7 @@ type Props = {
 const PlatformLayout: React.FC<Props> = ({ children }) => {
   return (
     <ClerkProvider>
+      <Toaster />
       {children}
     </ClerkProvider>
   )
