@@ -23,6 +23,7 @@ export const useAction = <TInput, TOutput>(
 
   const execute = useCallback(async (input: TInput) => {
     setIsLoading(true)
+    setFieldErrors(undefined) // Reset field errors on retry
 
     try {
       const res = await action(input)
