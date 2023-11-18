@@ -1,10 +1,12 @@
 "use client"
 
 import { createBoard } from "@/actions/create-board"
-import { FormSubmit } from "./form-submit"
 import { useAction } from "@/hooks/use-action"
 
-export const FormInput = () => {
+import { FormSubmit } from "@/components/form/form-submit"
+import { FormInput } from "@/components/form/form-input"
+
+export const Form = () => {
   const {execute, fieldErrors} = useAction(createBoard, {
     onSucces: (data) => {
       console.log("Success!!", data)
@@ -24,15 +26,10 @@ export const FormInput = () => {
 
   return (
     <form action={onSubmit}>
-      {fieldErrors?.title && (
-        <div>
-          {fieldErrors?.title.map(error => (
-            <p key={error} className="text-rose-500">{error}</p>
-          ))}
-        </div>
-      )}
-      <input id="title" name="title" placeholder="Enter title" className="border border-input p-1"/>
-      <FormSubmit />
+      <FormInput label="Title" id="title" errors={fieldErrors} />
+      <FormSubmit>
+        Submit
+      </FormSubmit>
     </form>
   )
 }
