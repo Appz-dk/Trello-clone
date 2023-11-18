@@ -1,6 +1,7 @@
 "use client"
 
 import { X } from "lucide-react"
+import { toast } from "sonner"
 import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "@/components/ui/popover"
 import { useAction } from "@/hooks/use-action"
 import { createBoard } from "@/actions/create-board"
@@ -19,8 +20,14 @@ type Props = {
 
 export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom", sideOffset = 0 }) => {
   const { execute, fieldErrors, isLoading } = useAction(createBoard, {
-    onSucces: data => console.log("Created a new Board", data),
-    onError: error => console.log("Create board error", error)
+    onSucces: data => {
+      console.log("Created a new Board", data)
+      toast.success("Created a new Board")
+    },
+    onError: error => {
+      console.log("Create board error", error)
+      toast.error(error)
+    }
   })
 
   const handleCreateBoard = async (formData: FormData) => {
