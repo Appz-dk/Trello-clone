@@ -1,5 +1,3 @@
-import { createBoard } from "@/actions/createBoard"
-import { Button } from "@/components/ui/button"
 import { db } from "@/lib/db"
 import { Board } from "./_temp-components/board"
 import { FormInput } from "./_temp-components/form-input"
