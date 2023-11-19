@@ -4,7 +4,7 @@ import { forwardRef } from "react";
 import { useFormStatus } from "react-dom";
 
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Input, InputProps } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 import { FormErrors } from "./form-errors";
@@ -20,6 +20,7 @@ type Props = {
   disabled?: boolean;
   errors?: Record<string, string[] | undefined>;
   onBlur?: () => void;
+  props?: InputProps
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(({
@@ -33,6 +34,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(({
   placeholder,
   required,
   type,
+  props
 }, ref) => {
 
   const { pending } = useFormStatus()
@@ -57,6 +59,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(({
           type={type}
           onBlur={onBlur}
           aria-describedby={`${id}-error`}
+          {...props}
         />
       </div>
       <FormErrors id={id} errors={errors} />
