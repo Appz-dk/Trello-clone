@@ -1,15 +1,19 @@
 "use client"
 
+import { ElementRef, forwardRef, useRef } from "react"
+import { useRouter } from "next/navigation"
 import { X } from "lucide-react"
 import { toast } from "sonner"
+
 import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
 import { useAction } from "@/hooks/use-action"
 import { createBoard } from "@/actions/create-board"
 
 import { FormInput } from "./form-input"
 import { FormSubmit } from "./form-submit"
+import { FormPicker } from "./form-picker"
 
-import { Button } from "@/components/ui/button"
 
 type Props = {
   children: React.ReactNode;
@@ -19,23 +23,25 @@ type Props = {
 }
 
 export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom", sideOffset = 0 }) => {
+  const router = useRouter()
+  const closePopoverRef = useRef<ElementRef<"button">>(null)
   const { execute, fieldErrors, isLoading } = useAction(createBoard, {
     onSucces: data => {
-      console.log("Created a new Board", data)
       toast.success("Created a new Board")
+      // Close popover on success & redirect to new board
+      closePopoverRef.current?.click()
+      router.push(`/board/${data.id}`)
     },
     onError: error => {
-      console.log("Create board error", error)
       toast.error(error)
     }
   })
 
   const handleCreateBoard = async (formData: FormData) => {
     const title = formData.get("title") as string
-    
-    if (!title) return
+    const image = formData.get("image") as string
 
-    await execute({ title })
+    await execute({ title, image })
   }
 
   return (
@@ -51,29 +57,32 @@ export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom",
       >
         {/* TODO: Create form */}
         <div className="text-sm font-medium text-center text-neutral-700">
-          <PopoverCloseBtn />
+          <PopoverCloseBtn ref={closePopoverRef} />
           Create board
           <form className="flex flex-col text-left gap-2 mt-4" action={handleCreateBoard}>
             <div className="space-y-4">
-             <FormInput id="title" label="Board title" type="text" errors={fieldErrors}/>
+              <FormPicker id="image" errors={fieldErrors} />
+              <FormInput id="title" label="Board title" type="text" errors={fieldErrors}/>
             </div>
             <FormSubmit>
-              Submit
+              Create
             </FormSubmit>
           </form>
         </div>
-        
       </PopoverContent>
     </Popover>
   )
 }
 
-const PopoverCloseBtn = () => {
+
+const PopoverCloseBtn = forwardRef<HTMLButtonElement>((_, ref)  => {
   return (
-    <PopoverClose>
+    <PopoverClose ref={ref} asChild>
       <Button className="w-auto h-auto p-1 absolute top-2 right-2" variant="ghost">
         <X className="w-4 h-4"/>
       </Button>
     </PopoverClose>
   )
-}
+})
+
+PopoverCloseBtn.displayName = 'PopoverCloseBtn'; // It's a good practice to set a displayName for components created with forwardRef
