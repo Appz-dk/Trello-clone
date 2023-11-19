@@ -6,16 +6,28 @@ import { revalidatePath } from "next/cache"
 import { db } from "@/lib/db"
 import { createSafeAction } from "@/lib/create-safe-action"
 
-import { InputType, ReturnType } from "./types"
-import { boardSchema } from "./schema"
+import { ImageData, InputType, ReturnType } from "./types"
+import { boardSchema, imageSchema } from "./schema"
+
+
 
 const handler = async (data: InputType): Promise<ReturnType> => {
-  const { userId } = auth()
+  const { userId, orgId } = auth()
 
   // Check user is authenticated 
-  if (!userId) return {error: "Unauthorized"}
+  if (!userId || !orgId) return {error: "Unauthorized"}
 
-  const { title } = data
+  const { title, image } = data
+  const formattedImageData = JSON.parse(image) as ImageData
+
+  // Validate image format
+  const imageValidationResult = imageSchema.safeParse(formattedImageData)
+  if(!imageValidationResult.success) {
+    return {
+      // TODO: Could improve this error message (will just highlight the first issue)
+      error: imageValidationResult.error.issues[0].message,
+    }
+  }
 
   // Try to create a board in the database
   let board
@@ -23,7 +35,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   try {
     board = await db.board.create({
       data: {
-        title
+        orgId: orgId,
+        title,
+        ...formattedImageData,
       }
     })
   } catch (error) {
