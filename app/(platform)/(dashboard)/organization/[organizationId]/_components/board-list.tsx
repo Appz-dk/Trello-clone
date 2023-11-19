@@ -1,9 +1,34 @@
-import { FormPopover } from "@/components/form/form-popover"
-import { Hint } from "@/components/hint"
+import Link from "next/link"
+import { redirect } from "next/navigation"
 import { HelpCircle, User2 } from "lucide-react"
 
-export const BoardList = () => {
+import { db } from "@/lib/db"
+import { auth } from "@clerk/nextjs"
 
+import { Skeleton } from "@/components/ui/skeleton"
+import { FormPopover } from "@/components/form/form-popover"
+import { Hint } from "@/components/hint"
+
+export const BoardList = async () => {
+  const { orgId } = auth()
+
+  if (!orgId) {
+    return redirect("/select-org")
+  }
+
+
+  // Uncomment to simulate a longer fetching time
+  // await new Promise(resolve => setTimeout(resolve, 2000))
+
+  const boards = await db.board.findMany({
+    where: {
+      orgId
+    },
+    orderBy: {
+      createdAt: "desc"
+    }
+  })
+  
   const hintDescription = `Free Workspaces can have up to 5 open boards. For unlimitted boards, upgrade this worksspace.`
 
   return (
@@ -13,6 +38,19 @@ export const BoardList = () => {
         Your Boards
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {boards.map(board => (
+          <Link
+            key={board.id} 
+            href={`/board/${board.id}`}
+            style={{
+              backgroundImage: `url(${board.imageThumbUrl})`
+            }}
+            className="relative group rounded-md bg-no-repeat bg-cover bg-center aspect-video p-2 overflow-hidden bg-sky-700"
+          >
+            <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition" />
+            <p className="relative truncate text-white text-sm font-semibold">{board.title}</p>
+          </Link>
+        ))}
         <FormPopover side="right" sideOffset={10}>
           <div
             role="button"
@@ -32,4 +70,18 @@ export const BoardList = () => {
       </div>
     </div>
   ) 
+}
+
+BoardList.Skeleton = function() {
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+      <Skeleton className="aspect-video h-full w-full rounded-md" />
+    </div>
+  )
 }
