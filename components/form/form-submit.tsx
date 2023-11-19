@@ -20,7 +20,7 @@ export const FormSubmit: React.FC<Props> = ({
   disabled, 
   className, 
   // onClick, 
-  variant = "default", 
+  variant = "primary", 
   size = "sm" 
 }) => {
 
