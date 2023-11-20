@@ -6,15 +6,15 @@ import { ActionState, FieldErrors } from "@/lib/create-safe-action";
 // TOutput is schema created in Prisma (The return value prisma will give back)
 type Action<TInput, TOutput> = (data: TInput) => Promise<ActionState<TInput, TOutput>>
 
-interface useActionOptions<TOutput> {
-  onSucces?: (data: TOutput) => void;
+interface useActionOptions<TOutput, TInput> {
+  onSuccess?: (data: TOutput) => void;
   onError?: (error: string) => void;
-  onComplete?: () => void;
+  onComplete?: (fieldErrors?: FieldErrors<TInput> ) => void;
 }
 
 export const useAction = <TInput, TOutput>(
   action: Action<TInput, TOutput>,
-  options: useActionOptions<TOutput> = {}
+  options: useActionOptions<TOutput, TInput> = {}
 ) => {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors<TInput> | undefined>(undefined)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -24,6 +24,7 @@ export const useAction = <TInput, TOutput>(
   const execute = useCallback(async (input: TInput) => {
     setIsLoading(true)
     setFieldErrors(undefined) // Reset field errors on retry
+    let tempFieldErrors = undefined;
 
     try {
       const res = await action(input)
@@ -33,6 +34,7 @@ export const useAction = <TInput, TOutput>(
       // Input error
       if (res.fieldErrors) {
         setFieldErrors(res.fieldErrors)
+        tempFieldErrors = res.fieldErrors
       }
 
       // Server error
@@ -44,11 +46,11 @@ export const useAction = <TInput, TOutput>(
       // Result data
       if (res.data) {
         setData(res.data)
-        options?.onSucces?.(res.data)
+        options?.onSuccess?.(res.data)
       }
     } finally {
       setIsLoading(false)
-      options?.onComplete?.()
+      options?.onComplete?.(tempFieldErrors)
     }
   }, [action, options])
 

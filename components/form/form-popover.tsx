@@ -26,7 +26,7 @@ export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom",
   const router = useRouter()
   const closePopoverRef = useRef<ElementRef<"button">>(null)
   const { execute, fieldErrors, isLoading } = useAction(createBoard, {
-    onSucces: data => {
+    onSuccess: data => {
       toast.success("Created a new Board")
       // Close popover on success & redirect to new board
       closePopoverRef.current?.click()
