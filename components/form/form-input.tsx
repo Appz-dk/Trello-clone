@@ -20,7 +20,8 @@ type Props = {
   disabled?: boolean;
   errors?: Record<string, string[] | undefined>;
   onBlur?: () => void;
-  props?: InputProps
+  props?: InputProps;
+  autoFocus?: boolean;
 }
 
 export const FormInput = forwardRef<HTMLInputElement, Props>(({
@@ -34,6 +35,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(({
   placeholder,
   required,
   type,
+  autoFocus,
   props
 }, ref) => {
 
@@ -59,6 +61,7 @@ export const FormInput = forwardRef<HTMLInputElement, Props>(({
           type={type}
           onBlur={onBlur}
           aria-describedby={`${id}-error`}
+          autoFocus={autoFocus}
           {...props}
         />
       </div>
