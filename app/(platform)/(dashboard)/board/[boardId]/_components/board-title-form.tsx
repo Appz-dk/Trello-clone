@@ -56,7 +56,14 @@ export const BoardTitleForm = ({ board }: Props) => {
   }
 
   const onSubmit = async (formData: FormData) => {
-    const title = formData.get("title") as string
+    const title = formData.get("title")?.toString()?.trim()
+
+    // If title is empty or same as boardTitle just return
+    if (!title || title === boardTitle.trim()) {
+      if (titleRef.current) titleRef.current.value = boardTitle
+      disableEditing()
+      return
+    }
 
     await execute({title, id: board.id })
   }
