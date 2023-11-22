@@ -20,10 +20,11 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const { title, boardId } = data
 
 
-  // Try to create a board in the database
+  // Try to create a list in the database
   let newList
   
   try {
+    // First check board still exists
     const board = await db.board.findUnique({
       where: {
         id: boardId,
