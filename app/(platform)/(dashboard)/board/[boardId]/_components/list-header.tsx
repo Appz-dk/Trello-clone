@@ -9,12 +9,14 @@ import { updateList } from "@/actions/update-list"
 
 import { FormInput } from "@/components/form/form-input"
 import { List } from "@prisma/client"
+import { ListOptions } from "./list-options"
 
 type Props = {
-  data: List
+  data: List;
+  onAddCard: () => void
 }
 
-export const ListHeader = ({ data }: Props) => {
+export const ListHeader = ({ data, onAddCard }: Props) => {
   const { execute, isLoading } = useAction(updateList, {
     onSuccess(data) {
       toast.success(`Renamed list to "${data.title}"`)
@@ -61,8 +63,7 @@ export const ListHeader = ({ data }: Props) => {
   }
 
 
-  if (isEditing) {
-    return (
+  const headerContent = isEditing ? (
       <form action={onSubmit} ref={formRef} className="flex-grow">
         <FormInput 
           className="max-w-[90%] bg-inherit font-medium border-transparent focus:bg-white h-6 focus-visible:ring-offset-0" 
@@ -83,12 +84,19 @@ export const ListHeader = ({ data }: Props) => {
         <input className="hidden" id="boardId" name="boardId" value={data.boardId} readOnly/>
         <button type="submit" hidden />
       </form>
+    ) : (
+      <div 
+        className="text-sm flex items-center font-medium px-2 cursor-pointer flex-grow max-w-[85%]" 
+        onClick={onEnableEditing}
+        >
+        <p className="truncate">{listTitle}</p> 
+      </div>
     )
-  }
 
   return (
-    <div className="text-sm flex items-center font-medium px-2 cursor-pointer flex-grow max-w-[85%]" onClick={onEnableEditing}>
-      <p className="truncate">{listTitle}</p> 
+    <div className="flex justify-between w-full">
+      {headerContent}
+      <ListOptions data={data} onAddCard={onEnableEditing} />
     </div>
   )
 }
