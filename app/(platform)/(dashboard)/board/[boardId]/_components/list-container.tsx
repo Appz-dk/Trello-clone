@@ -108,8 +108,8 @@ export const ListContainer = ({ boardId, lists }: Props) => {
           return list
         })
         setOrderedListsData(newListsData)
-        // Execute server action to keep db in sync
-        executeUpdateCardOrder({items: [...sourceListWithUpdatedCards.cards, ...destListWithUpdatedCards.cards], boardId})
+        // Execute server action to keep db in sync (Not necesary to also sync source list)
+        executeUpdateCardOrder({items: destListWithUpdatedCards.cards, boardId})
       }
     }
   }
