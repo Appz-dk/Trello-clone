@@ -1,12 +1,14 @@
+import { forwardRef, ComponentPropsWithRef } from "react"
 
 type Props = {
   children: React.ReactNode
+  props?: React.HTMLAttributes<HTMLLIElement>
 }
 
-export const ListWrapper = ({ children }: Props) => {
+export const ListWrapper = forwardRef<HTMLLIElement, ComponentPropsWithRef<"li">>(({ children, ...props }, ref) => {
   return (
-    <li className="flex-shrink-0 w-[272px] h-full select-none">
+    <li ref={ref} className="flex-shrink-0 w-[272px] h-full select-none" {...props}>
       {children}
     </li>
   )
-}
+})
