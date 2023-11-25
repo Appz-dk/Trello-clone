@@ -62,8 +62,7 @@ export const CardModalHeader = ({ data }: Props) => {
             />
         </form>
       </div>
-      {/* TODO: Find a better way to shrink this text. If it is long it overflows the modal and the modal wont shrink */}
-      <p className="ml-[24px] px-1 text-sm text-muted-foreground truncate max-w-[12rem] min-[380px]:max-w-[18rem] sm:max-w-sm">
+      <p className="ml-[24px] px-1 text-sm text-muted-foreground line-clamp-1">
         In list <span className="underline">{data.list.title}</span>
       </p>
     </div>

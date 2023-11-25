@@ -95,7 +95,7 @@ export const CardModalDescription = ({ data }: Props) => {
         </form>
         ) : (
           <div 
-            className="w-full h-20 rounded-md bg-neutral-200 p-2.5 text-sm font-medium" 
+            className="w-full h-20 rounded-md bg-neutral-200 p-2.5 text-sm font-medium overflow-hidden" 
             role="button"
             onClick={onEnableEditing}
           >

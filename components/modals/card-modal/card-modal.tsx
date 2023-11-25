@@ -27,7 +27,7 @@ export const CardModal = () => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
-        <div className="max-w-[440px]">
+        <div>
           {modalHeaderContent}
           <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
             <div className="col-span-3">
