@@ -15,11 +15,11 @@ export const ActivityItem = ({ auditLog }: Props) => {
         <AvatarImage src={auditLog.userImage} />
       </Avatar>
       <div className="flex flex-col gap-0.5 text-muted-foreground w-full">
-        <p className="text-sm truncate">
+        <p className="text-sm line-clamp-2 sm:flex sm:flex-row sm:line-clamp-1">
           <span className="font-semibold lowercase text-neutral-700">
             {auditLog.userName}
           </span>
-          &nbsp;{generateLogMessage(auditLog)}
+          <span className="block ml-0 sm:ml-1">{generateLogMessage(auditLog)}</span>
         </p>
         <p className="text-xs">{format(new Date(auditLog.createdAt), "d MMM, yyyy 'at' h:mm a")}</p>
       </div>
