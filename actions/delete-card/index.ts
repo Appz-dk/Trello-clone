@@ -8,6 +8,8 @@ import { createSafeAction } from "@/lib/create-safe-action"
 
 import { InputType, ReturnType } from "./types"
 import { deleteCardSchema } from "./schema"
+import { createAuditLog } from "@/lib/create-audit-log"
+import { ACTION, ENTITY_TYPE } from "@prisma/client"
 
 
 
@@ -35,6 +37,14 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         }
       }
     })
+
+    await createAuditLog({
+      action: ACTION.DELETE,
+      entityType: ENTITY_TYPE.CARD, 
+      entityId: deletedCard.id, 
+      entityTitle: deletedCard.title
+    })
+    
   } catch (error) {
     // Incase of error return error message
     return {
