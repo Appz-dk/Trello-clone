@@ -23,7 +23,8 @@ type Props = {
 export const CardModalDescription = ({ data }: Props) => {
   const { execute, fieldErrors } = useAction(updateCard, {
     onSuccess(data) {
-      queryClient.invalidateQueries({queryKey: ["card", data.id]})
+      queryClient.invalidateQueries({queryKey: ["card", data.id]});
+      queryClient.invalidateQueries({queryKey: ["card-audit-logs", data.id]});
       toast.success(`Updated card "${data.title}"`)
       setDescription(data.description)
       onDisableEditing()

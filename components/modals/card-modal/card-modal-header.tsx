@@ -20,7 +20,8 @@ type Props = {
 export const CardModalHeader = ({ data }: Props) => {
   const { execute, fieldErrors } = useAction(updateCard, {
     onSuccess(data) {
-      queryClient.invalidateQueries({queryKey: ["card", data.id]})
+      queryClient.invalidateQueries({queryKey: ["card", data.id]});
+      queryClient.invalidateQueries({queryKey: ["card-audit-logs", data.id]});
       toast.success(`Renamed card to "${data.title}"`)
       setTitle(title)
     },
