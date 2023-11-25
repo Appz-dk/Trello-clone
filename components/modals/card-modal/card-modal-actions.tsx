@@ -49,7 +49,7 @@ export const CardModalActions = ({ data }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-1 min-[400px]:grid-cols-2 md:grid-cols-1 gap-2 mt-2">
+    <div className="grid grid-cols-1 min-[400px]:grid-cols-2 md:grid-cols-1 md:grid-rows-[repeat(3,_auto)_1fr] gap-2 mt-2">
       <p className="text-xs font-semibold col-span-full">Actions</p>
 
       <Button 
