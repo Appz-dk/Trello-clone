@@ -89,20 +89,6 @@ export const hasAvailableFreeBoards = async () => {
 
 
 
-// export const getNumberOfAvailableBoards = async () => {
-//   const { orgLimit, orgId } = await getOrgLimit()
-
-//   if (!orgId) {
-//     return 0
-//   }
-
-//   if (orgLimit) {
-//     return MAX_FREE_BOARDS - orgLimit.count
-//   } else {
-//     return MAX_FREE_BOARDS
-//   }
-// }
-
 export const getNumberOfBoards = async () => {
   const { orgLimit, orgId } = await getOrgLimit()
 
