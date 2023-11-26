@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache"
 
 import { db } from "@/lib/db"
 import { createSafeAction } from "@/lib/create-safe-action"
+import { incrementBoardsCount, hasAvailableFreeBoards } from "@/lib/org-limit"
 
 import { ImageData, InputType, ReturnType } from "./types"
 import { boardSchema, imageSchema } from "./schema"
@@ -17,7 +18,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth()
 
   // Check user is authenticated 
-  if (!userId || !orgId) return {error: "Unauthorized"}
+  if (!userId || !orgId) {
+    return {error: "Unauthorized"}
+  }
+
+  const allowCreate = await hasAvailableFreeBoards()
+
+  if (!allowCreate) {
+    return {
+      error: "You have reached your free boards limit. Please upgrade to create more."
+    }
+  }
 
   const { title, image } = data
   const formattedImageData = JSON.parse(image) as ImageData
@@ -49,6 +60,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: board.id, 
       entityTitle: board.title
     })
+
+    await incrementBoardsCount()
 
   } catch (error) {
     // Incase of error return error message

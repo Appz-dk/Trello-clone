@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache"
 
 import { db } from "@/lib/db"
 import { createSafeAction } from "@/lib/create-safe-action"
+import { decrementBoardsCount } from "@/lib/org-limit"
 
 import { InputType, ReturnType } from "./types"
 import { deleteBoardSchema } from "./schema"
@@ -18,7 +19,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth()
 
   // Check user is authenticated 
-  if (!userId || !orgId) return { error: "Unauthorized" }
+  if (!userId || !orgId) {
+    return {error: "Unauthorized"}
+  }
 
   const { id } = data
 
@@ -40,6 +43,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       entityId: deletedBoard.id, 
       entityTitle: deletedBoard.title
     })
+
+    await decrementBoardsCount()
     
   } catch (error) {
     // Incase of error return error message
