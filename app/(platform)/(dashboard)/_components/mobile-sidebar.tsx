@@ -24,7 +24,7 @@ export const MobileSidebar = () => {
   // we will simply return null. This makes sure this component only is rendered on the client side
   useEffect(() => {
     setIsMounted(true)
-  }, [setIsMounted])
+  }, [])
   
   if (!isMounted) return null
 

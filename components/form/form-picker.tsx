@@ -25,7 +25,7 @@ export const FormPicker: React.FC<Props> = ({ id, errors }) => {
     (async () => {
       await fetchImages();
     })();
-  }, [fetchImages])
+  }, [])
 
 
 
