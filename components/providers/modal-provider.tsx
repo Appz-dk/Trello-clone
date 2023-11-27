@@ -12,7 +12,7 @@ export const ModalProvider = () => {
 
   useEffect(() => {
     setIsMounted(true)
-  })
+  }, [setIsMounted])
 
   // Only render this component on the client (useEffect only runs on the client)
   if (!isMounted) return null

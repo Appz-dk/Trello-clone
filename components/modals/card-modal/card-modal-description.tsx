@@ -109,7 +109,7 @@ export const CardModalDescription = ({ data }: Props) => {
 }
 
 
-
+CardModalDescription.displayName = "CardModalDescription"
 
 CardModalDescription.Skeleton = function() {
   return (

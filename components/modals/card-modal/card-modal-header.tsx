@@ -70,6 +70,8 @@ export const CardModalHeader = ({ data }: Props) => {
   )
 }
 
+CardModalHeader.displayName = "CardModalHeader"
+
 CardModalHeader.Skeleton = function() {
   return (
     <div className="flex items-start gap-2 mb-2 w-full">

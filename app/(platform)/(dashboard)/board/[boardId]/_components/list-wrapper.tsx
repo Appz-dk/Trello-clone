@@ -12,3 +12,5 @@ export const ListWrapper = forwardRef<HTMLLIElement, ComponentPropsWithRef<"li">
     </li>
   )
 })
+
+ListWrapper.displayName = "ListWrapper"
