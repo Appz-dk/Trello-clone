@@ -80,8 +80,6 @@ export const CardModalActions = ({ data }: Props) => {
 
 
 
-CardModalActions.displayName = "CardModalActions"
-
 CardModalActions.Skeleton = function() {
   return (
     <div className="space-y-2">

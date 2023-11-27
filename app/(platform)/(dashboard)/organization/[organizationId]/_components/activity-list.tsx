@@ -37,8 +37,6 @@ export const ActivityList = async () => {
   )
 }
 
-ActivityList.displayName = "ActivityList"
-
 ActivityList.Skeleton = function() {
   return (
     <ol className="space-y-4 mt-4">

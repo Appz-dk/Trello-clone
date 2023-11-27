@@ -17,7 +17,7 @@ export const MobileSidebar = () => {
   // Close mobile sidebar when pathname changes
   useEffect(() => {
     onClose()
-  }, [pathname])
+  }, [pathname, onClose])
 
   // Force component to not render on server.
   // useEffect will only run on the client if isMounted has not been set to true

@@ -26,8 +26,6 @@ export const Activity = ({ logsData }: Props ) => {
   )
 }
 
-Activity.displayName = "Activity"
-
 Activity.Skeleton = function() {
   return (
     <div className="w-full flex items-start gap-2">

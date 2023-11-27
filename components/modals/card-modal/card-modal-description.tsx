@@ -109,8 +109,6 @@ export const CardModalDescription = ({ data }: Props) => {
 }
 
 
-CardModalDescription.displayName = "CardModalDescription"
-
 CardModalDescription.Skeleton = function() {
   return (
     <div className="w-full flex items-start gap-3">
