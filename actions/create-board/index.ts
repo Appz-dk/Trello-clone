@@ -12,6 +12,7 @@ import { ImageData, InputType, ReturnType } from "./types"
 import { boardSchema, imageSchema } from "./schema"
 import { createAuditLog } from "@/lib/create-audit-log"
 import { ACTION, ENTITY_TYPE } from "@prisma/client"
+import { checkSubscription } from "@/lib/subscription"
 
 
 
@@ -23,13 +24,15 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     return {error: "Unauthorized"}
   }
 
-  const allowCreate = await hasAvailableFreeBoards()
+  const isSubcriped = await checkSubscription()
+  const allowCreate = isSubcriped ? true : await hasAvailableFreeBoards()
 
   if (!allowCreate) {
     return {
       error: MAX_LIMIT_MSG
     }
   }
+  
 
   const { title, image } = data
   const formattedImageData = JSON.parse(image) as ImageData
