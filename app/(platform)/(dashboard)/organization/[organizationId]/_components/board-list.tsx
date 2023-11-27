@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs"
 import { db } from "@/lib/db"
 import { MAX_FREE_BOARDS } from "@/constants/boards"
 import { getNumberOfBoards } from "@/lib/org-limit"
+import { checkSubscription } from "@/lib/subscription"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { FormPopover } from "@/components/form/form-popover"
@@ -33,8 +34,17 @@ export const BoardList = async () => {
     }
   })
 
-  const numOfBoards = await getNumberOfBoards()
+  const getBoardsLimit = async () => {
+    const isSubcriped = await checkSubscription()
+    if (isSubcriped) {
+      return "Unlimited"
+    } else {
+      const numOfBoards = await getNumberOfBoards()
+      return `${MAX_FREE_BOARDS - numOfBoards} remaining`
+    }
+  }
   
+  const boardsLimitMessage = await getBoardsLimit()
   const hintDescription = `Free Workspaces can have up to 5 open boards. For unlimitted boards, upgrade this worksspace.`
 
   return (
@@ -63,7 +73,7 @@ export const BoardList = async () => {
             className="flex flex-col items-center justify-center gap-2 aspect-video h-full w-full bg-muted rounded-md hover:opacity-75 transition relative"
           >
             <p className="text-sm">Create new board</p>
-            <span className="text-xs">{MAX_FREE_BOARDS - numOfBoards} remaining</span>
+            <span className="text-xs">{boardsLimitMessage}</span>
             <Hint
               sideOffset={40}
               description={hintDescription}
