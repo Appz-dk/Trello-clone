@@ -9,10 +9,12 @@ import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "@/compone
 import { Button } from "@/components/ui/button"
 import { useAction } from "@/hooks/use-action"
 import { createBoard } from "@/actions/create-board"
+import { useProModal } from "@/hooks/use-pro-modal"
 
 import { FormInput } from "./form-input"
 import { FormSubmit } from "./form-submit"
 import { FormPicker } from "./form-picker"
+import { MAX_LIMIT_MSG } from "@/constants/boards"
 
 
 type Props = {
@@ -23,9 +25,10 @@ type Props = {
 }
 
 export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom", sideOffset = 0 }) => {
+  const { onOpen: onOpenProModal } = useProModal(state => state)
   const router = useRouter()
   const closePopoverRef = useRef<ElementRef<"button">>(null)
-  const { execute, fieldErrors, isLoading } = useAction(createBoard, {
+  const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: data => {
       toast.success("Created a new Board")
       // Close popover on success & redirect to new board
@@ -34,6 +37,9 @@ export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom",
     },
     onError: error => {
       toast.error(error)
+      if (error === MAX_LIMIT_MSG) {
+        onOpenProModal()
+      }
     }
   })
 
@@ -55,7 +61,6 @@ export const FormPopover: React.FC<Props> = ({ children, align, side = "bottom",
         side={side}
         sideOffset={sideOffset}
       >
-        {/* TODO: Create form */}
         <div className="text-sm font-medium text-center text-neutral-700">
           <PopoverCloseBtn ref={closePopoverRef} />
           Create board

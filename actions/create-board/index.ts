@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache"
 import { db } from "@/lib/db"
 import { createSafeAction } from "@/lib/create-safe-action"
 import { incrementBoardsCount, hasAvailableFreeBoards } from "@/lib/org-limit"
+import { MAX_LIMIT_MSG } from "@/constants/boards"
 
 import { ImageData, InputType, ReturnType } from "./types"
 import { boardSchema, imageSchema } from "./schema"
@@ -26,7 +27,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
   if (!allowCreate) {
     return {
-      error: "You have reached your free boards limit. Please upgrade to create more."
+      error: MAX_LIMIT_MSG
     }
   }
 
