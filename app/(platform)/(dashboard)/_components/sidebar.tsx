@@ -33,7 +33,7 @@
     console.log("Outside useEffect");
     console.log('isLoadedOrg:', isLoadedOrg);
     console.log('isLoadedOrgList:', isLoadedOrgList);
-    console.log('userMemberships:', userMemberships);
+    console.log('userMemberships:', userMemberships.isLoading);
 
     const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
       // If the current key is expanded push it to the accumulator
@@ -54,7 +54,7 @@
       console.log('Inside useEffect - Sidebar');
       console.log('isLoadedOrg:', isLoadedOrg);
       console.log('isLoadedOrgList:', isLoadedOrgList);
-      console.log('userMemberships:', userMemberships);
+      console.log('userMemberships:', userMemberships.isLoading);
     }, []);
 
     // Loading State
