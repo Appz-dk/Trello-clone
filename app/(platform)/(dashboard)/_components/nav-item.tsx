@@ -63,7 +63,7 @@ export const NavItem = ({isActive, isExpanded, organization, onExpand} : Props) 
             )}
         >
           <div className="flex items-center gap-2">
-            <Image src={organization.imageUrl} width={28} height={28} alt="Organization logo" className="rounded-sm"/>
+            <Image src={organization.imageUrl} width={28} height={28} priority alt="Organization logo" className="rounded-sm"/>
             <span>
               {organization.name}
             </span>
