@@ -17,7 +17,7 @@
   }
 
   export const Sidebar: React.FC<Props> = ({ storageKey = "t-sidebar-state" }) => {
-    const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {})
+    // const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {})
     const { organization: activeOrg, isLoaded: isLoadedOrg } = useOrganization()
     const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
       userMemberships: {
@@ -34,20 +34,20 @@
       return null;
     }
 
-    const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
-      // If the current key is expanded push it to the accumulator
-      if (expanded[key]) acc.push(key)
-      return acc
-    }, [])
+    // const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
+    //   // If the current key is expanded push it to the accumulator
+    //   if (expanded[key]) acc.push(key)
+    //   return acc
+    // }, [])
 
-    const onExpand = (id: string) => {
-      setExpanded(prev => {
-        return {
-          ...prev,
-          [id]: !prev[id]
-        }
-      })
-    }
+    // const onExpand = (id: string) => {
+    //   setExpanded(prev => {
+    //     return {
+    //       ...prev,
+    //       [id]: !prev[id]
+    //     }
+    //   })
+    // }
 
     // Loading State
     if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
@@ -80,7 +80,7 @@
               </Link>
             </Button>
           </div>
-          <Accordion
+          {/* <Accordion
             type="multiple"
             defaultValue={defaultAccordianValue}
             className="space-y-2"
@@ -94,7 +94,7 @@
               onExpand={onExpand}
               />
               ))}
-          </Accordion>
+          </Accordion> */}
         </div>
       </>
     )
