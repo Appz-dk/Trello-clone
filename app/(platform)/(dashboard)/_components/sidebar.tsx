@@ -4,6 +4,7 @@
   import { useOrganization, useOrganizationList } from "@clerk/nextjs"
   import Link from "next/link"
   import { Plus } from "lucide-react"
+  import { useHasMounted } from "@/hooks/useHasMounted"
 
   import { Accordion } from "@/components/ui/accordion"
   import { Button } from "@/components/ui/button"
@@ -16,16 +17,22 @@
   }
 
   export const Sidebar: React.FC<Props> = ({ storageKey = "t-sidebar-state" }) => {
-
     const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {})
-
     const { organization: activeOrg, isLoaded: isLoadedOrg } = useOrganization()
-
     const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
       userMemberships: {
         infinite: true
       }
     })
+
+
+    // Amazing Read!
+    // https://medium.com/@mohit-vaswani/hydration-failed-in-next-js-what-it-is-and-how-to-fix-it-e566e15b680e
+    // This component has to be client side only due to hydrations issues
+    const { hasMounted } = useHasMounted()
+    if (!hasMounted) {
+      return null;
+    }
 
     const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
       // If the current key is expanded push it to the accumulator

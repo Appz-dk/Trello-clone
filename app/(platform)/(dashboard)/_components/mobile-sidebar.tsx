@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 
@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button"
 import { useMobileSidebar } from "@/hooks/use-mobile-sidebar"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { Sidebar } from "./sidebar"
+import { useHasMounted } from "@/hooks/useHasMounted"
 
 export const MobileSidebar = () => {
   const pathname = usePathname()
-  const [isMounted, setIsMounted] = useState(false)
   const { onOpen, onClose, isOpen } = useMobileSidebar(state => state)
 
   // Close mobile sidebar when pathname changes
@@ -20,13 +20,10 @@ export const MobileSidebar = () => {
   }, [pathname, onClose])
 
   // Force component to not render on server.
-  // useEffect will only run on the client if isMounted has not been set to true
-  // we will simply return null. This makes sure this component only is rendered on the client side
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-  
-  if (!isMounted) return null
+  const { hasMounted } = useHasMounted()
+  if (!hasMounted) {
+    return null
+  }
 
   return (
     <>

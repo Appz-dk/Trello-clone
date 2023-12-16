@@ -1,5 +1,6 @@
 "use client"
 
+import { useHasMounted } from "@/hooks/useHasMounted";
 import Image from "next/image";
 import { useOrganization } from "@clerk/nextjs"
 import { CreditCard } from "lucide-react";
@@ -11,6 +12,15 @@ type Props = {
 
 export const Info = ({ isSubscriped }: Props) => {
   const { organization, isLoaded } = useOrganization()
+
+  // Amazing Read!
+  // https://medium.com/@mohit-vaswani/hydration-failed-in-next-js-what-it-is-and-how-to-fix-it-e566e15b680e
+  // This component has to be client side only due to hydrations issues
+  const { hasMounted } = useHasMounted()
+  if (!hasMounted) {
+    return null;
+  }
+
 
 
   if (!isLoaded) {
