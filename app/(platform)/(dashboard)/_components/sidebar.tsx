@@ -71,7 +71,7 @@
 
     return (
       <>
-        <div className="flex flex-col gap-2 pl-4">
+        {/* <div className="flex flex-col gap-2 pl-4">
           <div className="text-sm font-medium flex items-center justify-between">
             <span>Workspaces</span>
             <Button size="icon" type="button" variant="ghost" asChild>
@@ -80,7 +80,7 @@
               </Link>
             </Button>
           </div>
-          {/* <Accordion
+          <Accordion
             type="multiple"
             defaultValue={defaultAccordianValue}
             className="space-y-2"
@@ -94,8 +94,8 @@
               onExpand={onExpand}
               />
               ))}
-          </Accordion> */}
-        </div>
+          </Accordion>
+        </div> */}
       </>
     )
   }

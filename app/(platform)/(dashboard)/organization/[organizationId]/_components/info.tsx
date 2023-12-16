@@ -29,18 +29,20 @@ export const Info = ({ isSubscriped }: Props) => {
 
 
   return (
-    <div className="flex items-center gap-4">
-      <div className="w-14 h-14 relative">
-        <Image fill sizes="auto" className="object-cover rounded-md" src={organization?.imageUrl || ""} alt="logo"/>
-      </div>
-      <div className="flex flex-col justify-center items-start">
-        <p className="text-xl font-semibold">{organization?.name}</p>
-        <div className="flex gap-1 items-center text-xs text-muted-foreground">
-          <CreditCard className="w-3 h-3" />
-          <p>{isSubscriped ? "Pro" : "Free"}</p>
+    <>
+      {/* <div className="flex items-center gap-4">
+        <div className="w-14 h-14 relative">
+          <Image fill sizes="auto" className="object-cover rounded-md" src={organization?.imageUrl || ""} alt="logo"/>
         </div>
-      </div>
-    </div>
+        <div className="flex flex-col justify-center items-start">
+          <p className="text-xl font-semibold">{organization?.name}</p>
+          <div className="flex gap-1 items-center text-xs text-muted-foreground">
+            <CreditCard className="w-3 h-3" />
+            <p>{isSubscriped ? "Pro" : "Free"}</p>
+          </div>
+        </div>
+      </div> */}
+    </>
   )
 } 
 
