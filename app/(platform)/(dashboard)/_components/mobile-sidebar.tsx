@@ -12,30 +12,31 @@ import { useHasMounted } from "@/hooks/useHasMounted"
 
 export const MobileSidebar = () => {
   return null
-  const pathname = usePathname()
-  const { onOpen, onClose, isOpen } = useMobileSidebar(state => state)
 
-  // Close mobile sidebar when pathname changes
-  useEffect(() => {
-    onClose()
-  }, [pathname, onClose])
+  // const pathname = usePathname()
+  // const { onOpen, onClose, isOpen } = useMobileSidebar(state => state)
 
-  // Force component to not render on server.
-  const { hasMounted } = useHasMounted()
-  if (!hasMounted) {
-    return null
-  }
+  // // Close mobile sidebar when pathname changes
+  // useEffect(() => {
+  //   onClose()
+  // }, [pathname, onClose])
 
-  return (
-    <>
-      <Button size="sm" variant="ghost" className="block md:hidden" onClick={onOpen}>
-        <Menu className="h-4 w-4"/>
-      </Button>
-      <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent side="left" className="p-2 pt-10">
-          <Sidebar storageKey="t-sidebar-mobile-state"/>
-        </SheetContent>
-      </Sheet>
-    </>
-  )
+  // // Force component to not render on server.
+  // const { hasMounted } = useHasMounted()
+  // if (!hasMounted) {
+  //   return null
+  // }
+
+  // return (
+  //   <>
+  //     <Button size="sm" variant="ghost" className="block md:hidden" onClick={onOpen}>
+  //       <Menu className="h-4 w-4"/>
+  //     </Button>
+  //     <Sheet open={isOpen} onOpenChange={onClose}>
+  //       <SheetContent side="left" className="p-2 pt-10">
+  //         <Sidebar storageKey="t-sidebar-mobile-state"/>
+  //       </SheetContent>
+  //     </Sheet>
+  //   </>
+  // )
 }
