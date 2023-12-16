@@ -11,6 +11,7 @@ import { Sidebar } from "./sidebar"
 import { useHasMounted } from "@/hooks/useHasMounted"
 
 export const MobileSidebar = () => {
+  return null
   const pathname = usePathname()
   const { onOpen, onClose, isOpen } = useMobileSidebar(state => state)
 
