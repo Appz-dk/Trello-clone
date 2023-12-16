@@ -17,7 +17,9 @@
   }
 
   export const Sidebar: React.FC<Props> = ({ storageKey = "t-sidebar-state" }) => {
-    // const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {})
+    return null
+    
+    const [expanded, setExpanded] = useLocalStorage<Record<string, boolean>>(storageKey, {})
     const { organization: activeOrg, isLoaded: isLoadedOrg } = useOrganization()
     const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
       userMemberships: {
@@ -34,20 +36,20 @@
       return null;
     }
 
-    // const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
-    //   // If the current key is expanded push it to the accumulator
-    //   if (expanded[key]) acc.push(key)
-    //   return acc
-    // }, [])
+    const defaultAccordianValue = Object.keys(expanded).reduce((acc: string[], key: string) => {
+      // If the current key is expanded push it to the accumulator
+      if (expanded[key]) acc.push(key)
+      return acc
+    }, [])
 
-    // const onExpand = (id: string) => {
-    //   setExpanded(prev => {
-    //     return {
-    //       ...prev,
-    //       [id]: !prev[id]
-    //     }
-    //   })
-    // }
+    const onExpand = (id: string) => {
+      setExpanded(prev => {
+        return {
+          ...prev,
+          [id]: !prev[id]
+        }
+      })
+    }
 
     // Loading State
     if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
@@ -71,7 +73,7 @@
 
     return (
       <>
-        {/* <div className="flex flex-col gap-2 pl-4">
+        <div className="flex flex-col gap-2 pl-4">
           <div className="text-sm font-medium flex items-center justify-between">
             <span>Workspaces</span>
             <Button size="icon" type="button" variant="ghost" asChild>
@@ -85,7 +87,7 @@
             defaultValue={defaultAccordianValue}
             className="space-y-2"
             >
-            {userMemberships.data.map(({ organization }) => (
+            {userMemberships.data?.map(({ organization }) => (
               <NavItem 
               key={organization.id} 
               isActive={organization.id === activeOrg?.id} 
@@ -95,7 +97,7 @@
               />
               ))}
           </Accordion>
-        </div> */}
+        </div>
       </>
     )
   }

@@ -11,6 +11,9 @@ type Props = {
 }
 
 export const Info = ({ isSubscriped }: Props) => {
+  return null
+
+
   const { organization, isLoaded } = useOrganization()
 
   // Amazing Read!
@@ -30,7 +33,7 @@ export const Info = ({ isSubscriped }: Props) => {
 
   return (
     <>
-      {/* <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4">
         <div className="w-14 h-14 relative">
           <Image fill sizes="auto" className="object-cover rounded-md" src={organization?.imageUrl || ""} alt="logo"/>
         </div>
@@ -41,7 +44,7 @@ export const Info = ({ isSubscriped }: Props) => {
             <p>{isSubscriped ? "Pro" : "Free"}</p>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   )
 } 
