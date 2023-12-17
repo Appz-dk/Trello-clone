@@ -23,7 +23,7 @@ export const BoardList = async () => {
   // TODO: Find a way to prevent OrganizationIdPage with Suspense showing the old BoardList before showing the re-rendered version.
   // This sucks. But without waiting 1 sec the old boards data will show as the loading skeleton dissapears before rendering the new BoardList.
   // I have tried google search, chatGPT and now waiting feedback from other devs to find a better solution.
-  await new Promise(resolve => setTimeout(resolve, 1000))
+  // await new Promise(resolve => setTimeout(resolve, 1000))
 
   const boards = await db.board.findMany({
     where: {
