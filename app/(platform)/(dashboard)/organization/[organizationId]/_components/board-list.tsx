@@ -64,7 +64,7 @@ export const BoardList = async () => {
             className="relative group rounded-md bg-no-repeat bg-cover bg-center aspect-video p-2 overflow-hidden bg-sky-700"
           >
             <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition" />
-            <p className="relative truncate text-white text-sm font-semibold">{board.title}</p>
+            <div className="relative truncate text-white text-sm font-semibold">{board.title}</div>
           </Link>
         ))}
         <FormPopover side="right" sideOffset={10}>
