@@ -21,16 +21,14 @@ export const ActivityList = async () => {
     }
   })
 
-  
+
   return (
     <ol className="space-y-4 mt-4">
-      {/* Only being displayed if last item aka. no logs are displayed */}
-      <p className="hidden last:block text-muted-foreground text-center text-sm">
-        No activity found in this organization
-      </p>
-      {logs.map(log => (
-        <ActivityItem key={log.id} auditLog={log} />
-      ))}
+      {logs.length ? (
+        logs.map((log) => <ActivityItem key={log.id} auditLog={log} />)
+      ) : (
+        <p className="block text-muted-foreground text-center text-sm">No activity found in this organization</p>
+      )}
     </ol>
   )
 }
