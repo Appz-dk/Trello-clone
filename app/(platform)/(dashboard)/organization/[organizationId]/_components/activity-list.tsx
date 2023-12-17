@@ -21,9 +21,7 @@ export const ActivityList = async () => {
     }
   })
 
-  await new Promise((resolve) => setTimeout(resolve, 800))
-
-
+  
   return (
     <ol className="space-y-4 mt-4">
       {/* Only being displayed if last item aka. no logs are displayed */}
