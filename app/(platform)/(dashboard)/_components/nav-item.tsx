@@ -6,6 +6,7 @@ import { AccordionContent, AccordionItem, AccordionTrigger } from "@/components/
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useOrganizationList } from "@clerk/nextjs";
 
 export type TOrganization = {
   id: string;
@@ -22,6 +23,7 @@ type Props = {
 }
 
 export const NavItem = ({isActive, isExpanded, organization, onExpand} : Props) => {
+  const { setActive } = useOrganizationList()
   const router = useRouter()
   const pathname = usePathname()
 
@@ -49,7 +51,10 @@ export const NavItem = ({isActive, isExpanded, organization, onExpand} : Props) 
     },
   ]
 
-  const onRouteChange = (href: string) => {
+  const onRouteChange = async (href: string) => {
+    // this bug has haunted me for hours!... The previous organization data was being shown for a breif second after React Suspense
+    // Because the organization ID was not updated
+    await setActive?.({organization: organization.id})
     router.push(href)
   }
 
