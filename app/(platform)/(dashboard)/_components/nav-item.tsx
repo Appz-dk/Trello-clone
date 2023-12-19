@@ -52,6 +52,9 @@ export const NavItem = ({isActive, isExpanded, organization, onExpand} : Props) 
   ]
 
   const onRouteChange = async (href: string) => {
+    // An alternative solution is to get the organizationId from params in OrganizationIdPage & ActivityPage and pass it along to BoardList & ActivityList
+    // instead of using const { orgId } = auth(). Although by doing the below we also ensure that the correct organization is currently selected.
+
     // this bug has haunted me for hours!... The previous organization data was being shown for a breif second after React Suspense
     // Because the organization ID was not updated
     await setActive?.({organization: organization.id})
