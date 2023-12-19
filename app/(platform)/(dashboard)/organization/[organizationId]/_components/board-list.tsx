@@ -20,7 +20,8 @@ export const BoardList = async () => {
   }
 
 
-  // OBS! - Turns out that in production the below is not an issue and also caused a huge headache with hydration error.
+  // OBS! - Turns out that in production the await new Promise below caused a huge headache with hydration error.
+
   // Find a way to prevent OrganizationIdPage with Suspense showing the old BoardList before showing the re-rendered version.
   // This sucks. But without waiting 1 sec the old boards data will show as the loading skeleton dissapears before rendering the new BoardList.
   // I have tried google search, chatGPT and now waiting feedback from other devs to find a better solution.
